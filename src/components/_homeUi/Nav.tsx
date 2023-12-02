@@ -11,9 +11,8 @@ import { FiHome } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
-type Props = {};
 
-const Nav = (props: Props) => {
+const Nav = () => {
   return (
     <Menubar className="flex items-center justify-center gap-16 p-5">
       <MenubarMenu>

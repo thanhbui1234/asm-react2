@@ -1,25 +1,12 @@
 type Props = {};
 import { useProductQuery } from "@/hooks/useProductQuery";
 import { useParams } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import LoadingDetail from "./LoadingDetail";
 
-type dataDetal = {
-  id?: number;
-  name?: string;
-  price?: number;
-};
-
-const ProductDetail = (props: Props) => {
+const ProductDetail = () => {
   const { idProd } = useParams();
 
   const { data, isLoading } = useProductQuery(idProd! as any);

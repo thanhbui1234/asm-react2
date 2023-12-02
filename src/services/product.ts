@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import instance from "@/core/api";
 import { IProduct } from "@/common/type";
 export const getAll = async () => {

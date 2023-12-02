@@ -1,11 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@radix-ui/react-label";
-import { Link } from "lucide-react";
 
-const LoadingDetail = (props: Props) => {
+const LoadingDetail = () => {
   return (
     <Card className="w-[550px] mx-auto mt-[200px]">
       <CardHeader>
