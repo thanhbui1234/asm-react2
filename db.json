@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "name": "John",
+      "password": "qewqewqwq"
+    }
+  ],
+  "products": [
+    {
+      "id": 2,
+      "name": "thanh 123 5 6",
+      "price": 123
+    },
+    {
+      "name": "Bùi Chí Thanh",
+      "price": 123123123213213,
+      "id": 5
+    },
+    {
+      "name": "thanh",
+      "price": 0,
+      "id": 6
+    },
+    {
+      "name": "ád",
+      "price": 123,
+      "id": 7
+    }
+  ]
+}
