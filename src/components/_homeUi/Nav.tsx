@@ -1,14 +1,7 @@
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
+import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 import { FiHome } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
+import { CiLogin } from "react-icons/ci";
 
 import { Link } from "react-router-dom";
 
@@ -30,8 +23,12 @@ const Nav = () => {
         </MenubarTrigger>
       </MenubarMenu>
       <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
-        <MenubarContent>
+        <MenubarTrigger className="cursor-pointer hover:scale-[110%] transition-transform">
+          <Link to={"/signin"}>
+            <CiLogin size={"30px"} />
+          </Link>
+        </MenubarTrigger>
+        {/* <MenubarContent>
           <MenubarItem>
             New Tab <MenubarShortcut>⌘T</MenubarShortcut>
           </MenubarItem>
@@ -40,7 +37,7 @@ const Nav = () => {
           <MenubarItem>Share</MenubarItem>
           <MenubarSeparator />
           <MenubarItem>Print</MenubarItem>
-        </MenubarContent>
+        </MenubarContent> */}
       </MenubarMenu>
     </Menubar>
   );

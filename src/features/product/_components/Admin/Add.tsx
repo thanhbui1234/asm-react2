@@ -23,10 +23,13 @@ const Add = () => {
   };
 
   return (
-    <div>
-      <h1>hê</h1>
+    <div className="mx-[350px] mt-24">
+      <h1 className="text-center font-bold text-2xl">ADD PRODUCT</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleOnSubmit)}>
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={form.handleSubmit(handleOnSubmit)}
+        >
           <FormField
             control={form.control}
             name="name"
@@ -51,7 +54,7 @@ const Add = () => {
               </FormItem>
             )}
           ></FormField>
-          {isLoading ? "loading" : <Button type="submit">Submit</Button>}
+          <Button type="submit">{isLoading ? "Loading..." : "SUBMIT"}</Button>
         </form>
       </Form>
     </div>

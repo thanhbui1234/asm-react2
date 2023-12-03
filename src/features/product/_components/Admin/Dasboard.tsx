@@ -11,12 +11,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useProductMountation } from "@/hooks/useProductMoutation";
 import { SkeletonDemo } from "./SkeletonLoading";
-import { toast } from "react-toastify";
 import { IProduct } from "@/common/type";
+import { CiCirclePlus } from "react-icons/ci";
+import ComfirmBtn from "./Comfirm";
+import { useState } from "react";
+import UpdateProduct from "./UpdateProduct";
 
-const getColum = (onRemove: any): ColumnDef<IProduct>[] => [
+const getColum = (): ColumnDef<IProduct>[] => [
   {
     header: "STT",
     cell: ({ row: { id } }) => {
@@ -35,9 +37,9 @@ const getColum = (onRemove: any): ColumnDef<IProduct>[] => [
     header: "Action",
     id: "action",
     cell: ({ row: { original } }) => {
-      const handelRemove = (product: IProduct) => {
-        onRemove(product);
-      };
+      const [show, setShow] = useState(false);
+      const [showUpdate, setShowUpdate] = useState(false);
+
       return (
         <>
           <DropdownMenu>
@@ -49,21 +51,28 @@ const getColum = (onRemove: any): ColumnDef<IProduct>[] => [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem className="flex gap-3">
-                <Link to={`/products/${original.id}/update`}>
-                  <Button variant={"green"}>Sửa</Button>
-                </Link>
-                <Button
-                  onClick={() => handelRemove(original)}
-                  variant={"destructive"}
-                >
+                <Button onClick={() => setShowUpdate(true)} variant={"green"}>
+                  UPDATE
+                </Button>
+                <Button onClick={() => setShow(true)} variant={"destructive"}>
                   DELETE
                 </Button>
+
                 <Link to={`/products/${original.id}/view`}>
                   <Button>Xem</Button>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          {showUpdate && (
+            <UpdateProduct
+              showUpdate={showUpdate}
+              setShowUpdate={setShowUpdate}
+              original={original}
+            />
+          )}
+
+          <ComfirmBtn show={show} original={original} setShow={setShow} />
         </>
       );
     },
@@ -72,13 +81,8 @@ const getColum = (onRemove: any): ColumnDef<IProduct>[] => [
 
 const Dashboard = () => {
   const { isLoading, isError, data } = useProductQuery();
-  const { onRemove }: any = useProductMountation({
-    action: "DELETE",
-    onSuccess: () => {
-      toast.success("deleted successfully");
-    },
-  });
-  const columns = getColum(onRemove);
+
+  const columns = getColum();
 
   if (isLoading)
     return (
@@ -90,6 +94,11 @@ const Dashboard = () => {
 
   return (
     <div>
+      <p className="flex justify-end cursor-pointer transition-transform">
+        <Link className=" " to={"add"}>
+          <CiCirclePlus size="30px" className="m-5" />
+        </Link>
+      </p>
       <DataTable columns={columns} data={data as IProduct[]} />
       <Outlet></Outlet>
     </div>
