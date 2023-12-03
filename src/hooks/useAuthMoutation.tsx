@@ -1,3 +1,4 @@
+import { formSchema } from "@/common/authSchema";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
@@ -13,16 +14,7 @@ type useAuthMoutations = {
   defaultValues: FormAuthType;
   onSuccess: () => void;
 };
-const schema = Joi.object({
-username: Joi.string().alphanum().min(3).max(30).required().message(
- {
-   "string.name" : "username khong hop le",
-  "any.required" : "khong duoc de trng name "
- }
-),
-password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-})
+
 
 const useAuthMoutation = ({
   action,
@@ -51,7 +43,7 @@ const useAuthMoutation = ({
     
   }
   const form = useForm<FormAuthType>({
-    resolver :joiResolver(),
+    resolver :joiResolver(formSchema),
   })
   
   );

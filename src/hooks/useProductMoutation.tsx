@@ -37,7 +37,6 @@ export const useProductMountation = ({
           return await deleteProduct(product.id! as number);
         }
         case "UPDATE": {
-          console.log(product);
           return await updateProduct(product);
         }
         default:
