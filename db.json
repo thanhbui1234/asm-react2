@@ -7,11 +7,6 @@
   ],
   "products": [
     {
-      "name": "Bùi Chí Thanh123",
-      "price": 123,
-      "id": 25
-    },
-    {
       "name": "Bùi Chí Thanh",
       "price": 0,
       "id": 26
@@ -30,11 +25,6 @@
       "name": "Bùi Chí Thanh",
       "price": 0,
       "id": 29
-    },
-    {
-      "name": "Bùi Chí Thanh",
-      "price": 0,
-      "id": 30
     },
     {
       "name": "213",

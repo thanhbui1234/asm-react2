@@ -1,35 +1,36 @@
-import { formSchema } from "@/common/authSchema";
+import { signin, signup } from "@/services/auth";
 import { joiResolver } from "@hookform/resolvers/joi";
-import Joi from "joi";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
+import { useLocalStorage } from "./useStorage";
+import { IUser } from "@/common/type";
+import { formSchema } from "@/common/authSchema";
 
 type FormAuthType = {
-  username: string;
   email: string;
   password: string;
 };
-type useAuthMoutations = {
-  action: "SIGNUP" | "SIGNIN";
-  defaultValues: FormAuthType;
-  onSuccess: () => void;
+
+type useAuthMutationProps = {
+  action: "SIGN_IN" | "SIGN_UP";
+  defaultValues?: FormAuthType;
+  onSuccess?: () => void;
 };
 
-
-const useAuthMoutation = ({
+const useAuthMutation = ({
   action,
-  defaultValues = { username: "", email: "", password: "" },
+  defaultValues = { email: "", password: "" },
   onSuccess,
-}: useAuthMoutations) => {
+}: useAuthMutationProps) => {
   const queryClient = useQueryClient();
+  const [, setUser] = useLocalStorage("user", {});
   const { mutate, ...rest } = useMutation({
-    mutationFn: async (user) => {
+    mutationFn: async (user: IUser) => {
       switch (action) {
-        case "SIGNIN":
-          break;
-        case "SIGNUP":
-          break;
-
+        case "SIGN_IN":
+          return await signin(user);
+        case "SIGN_UP":
+          return await signup(user);
         default:
           return null;
       }
@@ -39,15 +40,25 @@ const useAuthMoutation = ({
         queryKey: ["auth"],
       });
       onSuccess && onSuccess();
+      // Luu token vao localstorage
+      setUser(data);
     },
-    
-  }
+  });
+
   const form = useForm<FormAuthType>({
-    resolver :joiResolver(formSchema),
-  })
-  
-  );
-  return <div>useAuthMoutation</div>;
+    resolver: joiResolver(formSchema),
+    defaultValues,
+  });
+
+  const onSubmit: SubmitHandler<FormAuthType> = (values) => {
+    mutate(values as any);
+  };
+
+  return {
+    form,
+    onSubmit,
+    ...rest,
+  };
 };
 
-export default useAuthMoutation;
+export default useAuthMutation;
