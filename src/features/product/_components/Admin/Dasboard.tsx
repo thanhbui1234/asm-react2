@@ -99,6 +99,14 @@ const Dashboard = () => {
           <CiCirclePlus size="30px" className="m-5" />
         </Link>
       </p>
+      <h1
+        className="text-3xl text-center font-bold
+      
+      
+      "
+      >
+        LIST
+      </h1>
       <DataTable columns={columns} data={data as IProduct[]} />
       <Outlet></Outlet>
     </div>
